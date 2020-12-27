@@ -41,8 +41,6 @@ const main = () => {
 
     console.log(`Number of valid passwords (${level}): ${numValidPasswords}`)
   }
-
-  console.log(isValidPassword(123444, 2))
 }
 
 main()
