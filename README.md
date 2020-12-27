@@ -7,3 +7,4 @@ Resolution of the problems in JavaScript language:
 | [Day 01](01) | The Tyranny of the Rocket Equation | :star:                         |
 | [Day 02](02) | 1202 Program Alarm                 | :star:                         |
 | [Day 03](03) | Crossed Wires                      | :star::star:                   |
+| [Day 04](04) | Secure Container                   | :star:                         |
