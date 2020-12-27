@@ -3,7 +3,7 @@ const readline = require('readline')
 
 const getInput = async () => {
   return new Promise(resolve => {
-    const lines = []
+    const lines = [ ]
 
     readline.createInterface({ input: fs.createReadStream('./input.txt') })
       .on('line', line => lines.push(line))
