@@ -3,16 +3,17 @@ const readline = require('readline')
 
 const getInput = async () => {
   return new Promise(resolve => {
-    const lines = [ ]
+    const lines = []
 
-    readline.createInterface({ input: fs.createReadStream('./input.txt') })
+    readline
+      .createInterface({ input: fs.createReadStream('./input.txt') })
       .on('line', line => lines.push(line))
-      .on('close', () => lines.length === 1 ? resolve(lines[0]) : resolve(lines))
+      .on('close', () => (lines.length === 1 ? resolve(lines[0]) : resolve(lines)))
   })
 }
 
 const getPathsPoints = path => {
-  const pathPoints = [ [ 0, 0 ] ]
+  const pathPoints = [[0, 0]]
 
   const directions = path.split(',')
 
@@ -21,21 +22,21 @@ const getPathsPoints = path => {
 
     for (let i = 1; i <= dirNumber; i++) {
       const lastPoint = pathPoints[pathPoints.length - 1]
-      let newPoint = [ ]
+      let newPoint = []
 
       switch (dir[0]) {
-      case 'R':
-        newPoint = [ lastPoint[0] + 1, lastPoint[1] ]
-        break
-      case 'L':
-        newPoint = [ lastPoint[0] - 1, lastPoint[1] ]
-        break
-      case 'U':
-        newPoint = [ lastPoint[0], lastPoint[1] + 1 ]
-        break
-      case 'D':
-        newPoint = [ lastPoint[0], lastPoint[1] - 1 ]
-        break
+        case 'R':
+          newPoint = [lastPoint[0] + 1, lastPoint[1]]
+          break
+        case 'L':
+          newPoint = [lastPoint[0] - 1, lastPoint[1]]
+          break
+        case 'U':
+          newPoint = [lastPoint[0], lastPoint[1] + 1]
+          break
+        case 'D':
+          newPoint = [lastPoint[0], lastPoint[1] - 1]
+          break
       }
 
       pathPoints.push(newPoint)
@@ -46,7 +47,7 @@ const getPathsPoints = path => {
 }
 
 const findCrossingPoints = paths => {
-  const crossingPoints = [ ]
+  const crossingPoints = []
 
   for (const p of paths[0]) {
     for (const q of paths[1]) {
@@ -74,9 +75,9 @@ const getClosest = crossingPoints => {
 }
 
 const getSteps = (crossingPoints, path) => {
-  const steps = [ 0 ]
+  const steps = [0]
   let step = 0
-  const point = [ 0, 0 ]
+  const point = [0, 0]
   const directions = path.split(',')
 
   for (let dir of directions) {
@@ -84,18 +85,18 @@ const getSteps = (crossingPoints, path) => {
 
     for (let i = 1; i <= dirNumber; i++) {
       switch (dir[0]) {
-      case 'R':
-        point[0]++
-        break
-      case 'L':
-        point[0]--
-        break
-      case 'U':
-        point[1]++
-        break
-      case 'D':
-        point[1]--
-        break
+        case 'R':
+          point[0]++
+          break
+        case 'L':
+          point[0]--
+          break
+        case 'U':
+          point[1]++
+          break
+        case 'D':
+          point[1]--
+          break
       }
 
       step++
@@ -123,13 +124,13 @@ const indexOf = (point, points) => {
 const main = async () => {
   const paths = await getInput()
 
-  const pathsPoints = [ getPathsPoints(paths[0]), getPathsPoints(paths[1]) ]
+  const pathsPoints = [getPathsPoints(paths[0]), getPathsPoints(paths[1])]
   const crossingPoints = findCrossingPoints(pathsPoints)
   const closestIntersection = getClosest(crossingPoints)
 
   console.log(`Manhattan distance to the closest intersection (1): ${closestIntersection}`)
 
-  const steps = [ getSteps(crossingPoints, paths[0]), getSteps(crossingPoints, paths[1]) ]
+  const steps = [getSteps(crossingPoints, paths[0]), getSteps(crossingPoints, paths[1])]
 
   let minimumSteps = Number.MAX_SAFE_INTEGER
 
