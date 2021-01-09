@@ -3,11 +3,12 @@ const readline = require('readline')
 
 const getInput = async () => {
   return new Promise(resolve => {
-    const lines = [ ]
+    const lines = []
 
-    readline.createInterface({ input: fs.createReadStream('./input.txt') })
+    readline
+      .createInterface({ input: fs.createReadStream('./input.txt') })
       .on('line', line => lines.push(line))
-      .on('close', () => lines.length === 1 ? resolve(lines[0]) : resolve(lines))
+      .on('close', () => (lines.length === 1 ? resolve(lines[0]) : resolve(lines)))
   })
 }
 
@@ -18,11 +19,11 @@ const main = async () => {
 
   planetNames.push('COM')
 
-  const planets = { }
+  const planets = {}
 
   planetNames.forEach(p => {
-    planets[p] = { }
-    planetNames.forEach(q => planets[p][q] = p === q ? 0 : -1)
+    planets[p] = {}
+    planetNames.forEach(q => (planets[p][q] = p === q ? 0 : -1))
   })
 
   input.forEach(orbit => {
@@ -32,34 +33,41 @@ const main = async () => {
     planets[q][p] = 1
   })
 
-  for (let i = 0; i < 2; i++) { // Re-iterate to get the complete Dijkstra "matrix"
-    planetNames.forEach(p => planetNames.forEach(q => {
-      if (planets[p][q] > 0) {
-        planetNames.filter(r => planets[q][r] > 0).forEach(r => {
-          planets[p][r] = planets[p][q] + planets[q][r]
-        })
-      }
-    }))
+  for (let i = 0; i < 2; i++) {
+    // Re-iterate to get the complete Dijkstra "matrix"
+    planetNames.forEach(p =>
+      planetNames.forEach(q => {
+        if (planets[p][q] > 0) {
+          planetNames
+            .filter(r => planets[q][r] > 0)
+            .forEach(r => {
+              planets[p][r] = planets[p][q] + planets[q][r]
+            })
+        }
+      })
+    )
   }
 
   let direct = 0
   let indirect = 0
 
-  planetNames.forEach(p => planetNames.forEach(q => {
-    if (planets[p][q] === 1) direct++
-    if (planets[p][q] > 1) indirect++
-  }))
+  planetNames.forEach(p =>
+    planetNames.forEach(q => {
+      if (planets[p][q] === 1) direct++
+      if (planets[p][q] > 1) indirect++
+    })
+  )
 
   console.log(`Sum of direct and indirect orbits (1): ${direct + indirect}`)
 
   let commonPlanet = 'COM'
-  let distances = [ planets['YOU'][commonPlanet], planets['SAN'][commonPlanet] ]
+  let distances = [planets['YOU'][commonPlanet], planets['SAN'][commonPlanet]]
 
   for (const p of planetNames) {
     if (planets['YOU'][p] > 0 && planets['SAN'][p] > 0) {
       if (distances[0] > planets['YOU'][p] && distances[1] > planets['SAN'][p]) {
         commonPlanet = p
-        distances = [ planets['YOU'][p], planets['SAN'][p] ]
+        distances = [planets['YOU'][p], planets['SAN'][p]]
       }
     }
   }
