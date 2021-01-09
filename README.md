@@ -11,3 +11,4 @@ Resolution of the problems in JavaScript language:
 | [Day 05](05) | Sunny with a Chance of Asteroids   | :star::star:                   |
 | [Day 06](06) | Universal Orbit Map                | :star::star:                   |
 | [Day 07](07) | Amplification Circuit              | :star::star::star:             |
+| [Day 08](08) | Space Image Format                 | :star::star:                   |
