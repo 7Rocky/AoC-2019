@@ -3,61 +3,62 @@ const readline = require('readline')
 
 const getInput = async () => {
   return new Promise(resolve => {
-    const lines = [ ]
+    const lines = []
 
-    readline.createInterface({ input: fs.createReadStream('./input.txt') })
+    readline
+      .createInterface({ input: fs.createReadStream('./input.txt') })
       .on('line', line => lines.push(line))
-      .on('close', () => lines.length === 1 ? resolve(lines[0]) : resolve(lines))
+      .on('close', () => (lines.length === 1 ? resolve(lines[0]) : resolve(lines)))
   })
 }
 
-const process = (intcode, inputs, loopMode=false, i=0) => {
-  const outputs = [ ]
+const process = (intcode, inputs, loopMode = false, i = 0) => {
+  const outputs = []
 
   while (i < intcode.length) {
     const param1 = (intcode[i] / 100).toFixed(0) % 10 ? intcode[i + 1] : intcode[intcode[i + 1]]
     const param2 = (intcode[i] / 1000).toFixed(0) % 10 ? intcode[i + 2] : intcode[intcode[i + 2]]
 
     switch (intcode[i] % 100) {
-    case 1:
-      intcode[intcode[i + 3]] = param1 + param2
-      i += 4
-      break
-    case 2:
-      intcode[intcode[i + 3]] = param1 * param2
-      i += 4
-      break
-    case 3:
-      intcode[intcode[i + 1]] = inputs.shift()
-      i += 2
-      break
-    case 4:
-      outputs.push(param1)
-      i += 2
-      if (loopMode) return { index: i, outputs, intcode }
-      break
-    case 5:
-      i = param1 ? param2 : i + 3
-      break
-    case 6:
-      i = param1 ? i + 3 : param2
-      break
-    case 7:
-      intcode[intcode[i + 3]] = Number(param1 < param2)
-      i += 4
-      break
-    case 8:
-      intcode[intcode[i + 3]] = Number(param1 === param2)
-      i += 4
-      break
-    case 99:
-      if (loopMode) return { index: intcode.length, outputs, intcode: [ ] }
-      return outputs
+      case 1:
+        intcode[intcode[i + 3]] = param1 + param2
+        i += 4
+        break
+      case 2:
+        intcode[intcode[i + 3]] = param1 * param2
+        i += 4
+        break
+      case 3:
+        intcode[intcode[i + 1]] = inputs.shift()
+        i += 2
+        break
+      case 4:
+        outputs.push(param1)
+        i += 2
+        if (loopMode) return { index: i, outputs, intcode }
+        break
+      case 5:
+        i = param1 ? param2 : i + 3
+        break
+      case 6:
+        i = param1 ? i + 3 : param2
+        break
+      case 7:
+        intcode[intcode[i + 3]] = Number(param1 < param2)
+        i += 4
+        break
+      case 8:
+        intcode[intcode[i + 3]] = Number(param1 === param2)
+        i += 4
+        break
+      case 99:
+        if (loopMode) return { index: intcode.length, outputs, intcode: [] }
+        return outputs
     }
   }
 }
 
-const permute = (input, permArr=[ ], usedNumbers=[ ]) => {
+const permute = (input, permArr = [], usedNumbers = []) => {
   for (let i = 0; i < input.length; i++) {
     let numbers = input.splice(i, 1)[0]
     usedNumbers.push(numbers)
@@ -73,12 +74,12 @@ const permute = (input, permArr=[ ], usedNumbers=[ ]) => {
 }
 
 const copy = orig => {
-  const dest = [ ]
+  const dest = []
 
   for (const a of orig) dest.push(a)
 
   return dest
-} 
+}
 
 const main = async () => {
   const initialIntcode = await getInput()
@@ -86,11 +87,11 @@ const main = async () => {
   let intcode = initialIntcode.split(',').map(Number)
   let maxOutput = 0
 
-  for (const phases of permute([ 0, 1, 2, 3, 4 ])) {
-    let outputs = [ 0 ]
+  for (const phases of permute([0, 1, 2, 3, 4])) {
+    let outputs = [0]
 
     for (let i = 0; i < 5; i++) {
-      const inputs = [ phases.shift(), outputs.shift() ]
+      const inputs = [phases.shift(), outputs.shift()]
       outputs = process(intcode, inputs)
     }
 
@@ -100,30 +101,30 @@ const main = async () => {
   console.log(`Highest signal sent to thrusters (1): ${maxOutput}`)
 
   maxOutput = 0
-  let toThrustlers = [ ]
+  let toThrustlers = []
 
-  for (const phases of permute([ 5, 6, 7, 8, 9 ])) {
+  for (const phases of permute([5, 6, 7, 8, 9])) {
     let intcodeA = intcode,
       intcodeB = intcode,
       intcodeC = intcode,
       intcodeD = intcode,
       intcodeE = intcode,
-      inputsA = [ phases.shift() ],
-      inputsB = [ phases.shift() ],
-      inputsC = [ phases.shift() ],
-      inputsD = [ phases.shift() ],
-      inputsE = [ phases.shift() ],
-      outputsA = [ ],
-      outputsB = [ ],
-      outputsC = [ ],
-      outputsD = [ ],
-      outputsE = [ ],
+      inputsA = [phases.shift()],
+      inputsB = [phases.shift()],
+      inputsC = [phases.shift()],
+      inputsD = [phases.shift()],
+      inputsE = [phases.shift()],
+      outputsA = [],
+      outputsB = [],
+      outputsC = [],
+      outputsD = [],
+      outputsE = [],
       indexA = 0,
       indexB = 0,
       indexC = 0,
       indexD = 0,
       indexE = 0,
-      result = { }
+      result = {}
 
     while (indexE < intcode.length) {
       inputsA.push(outputsE && outputsE.length ? outputsE.shift() : 0)
