@@ -30,9 +30,9 @@ const isValidPassword = (password, level) => {
 }
 
 const main = () => {
-  const input = [ 372304, 847060 ]
+  const input = [372304, 847060]
 
-  for (const level of [ 1, 2 ]) {
+  for (const level of [1, 2]) {
     let numValidPasswords = 0
 
     for (let p = input[0]; p <= input[1]; p++) {
