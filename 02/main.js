@@ -3,25 +3,26 @@ const readline = require('readline')
 
 const getInput = async () => {
   return new Promise(resolve => {
-    const lines = [ ]
+    const lines = []
 
-    readline.createInterface({ input: fs.createReadStream('./input.txt') })
+    readline
+      .createInterface({ input: fs.createReadStream('./input.txt') })
       .on('line', line => lines.push(line))
-      .on('close', () => lines.length === 1 ? resolve(lines[0]) : resolve(lines))
+      .on('close', () => (lines.length === 1 ? resolve(lines[0]) : resolve(lines)))
   })
 }
 
 const process = intcode => {
   for (let i = 0; i < intcode.length; i += 4) {
     switch (intcode[i]) {
-    case 1:
-      intcode[intcode[i + 3]] = intcode[intcode[i + 1]] + intcode[intcode[i + 2]]
-      break
-    case 2:
-      intcode[intcode[i + 3]] = intcode[intcode[i + 1]] * intcode[intcode[i + 2]]
-      break
-    case 99:
-      return intcode[0]
+      case 1:
+        intcode[intcode[i + 3]] = intcode[intcode[i + 1]] + intcode[intcode[i + 2]]
+        break
+      case 2:
+        intcode[intcode[i + 3]] = intcode[intcode[i + 1]] * intcode[intcode[i + 2]]
+        break
+      case 99:
+        return intcode[0]
     }
   }
 }
