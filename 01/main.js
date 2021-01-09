@@ -9,11 +9,12 @@ const getFuel = mass => {
 
 const getInput = async () => {
   return new Promise(resolve => {
-    const lines = [ ]
+    const lines = []
 
-    readline.createInterface({ input: fs.createReadStream('./input.txt') })
+    readline
+      .createInterface({ input: fs.createReadStream('./input.txt') })
       .on('line', line => lines.push(line))
-      .on('close', () => lines.length === 1 ? resolve(lines[0]) : resolve(lines))
+      .on('close', () => (lines.length === 1 ? resolve(lines[0]) : resolve(lines)))
   })
 }
 
