@@ -40,8 +40,8 @@ const main = async () => {
 
   const target = 19690720
 
-  let noun = 0
-  let verb = 0
+  let noun
+  let verb
 
   for (noun = 0; noun < 99; noun++) {
     for (verb = 0; verb < 99; verb++) {
@@ -51,10 +51,10 @@ const main = async () => {
 
       output = process(intcode)
 
-      if (output == target) break
+      if (output === target) break
     }
 
-    if (output == target) break
+    if (output === target) break
   }
 
   console.log(`100 * noun + verb (2): ${100 * noun + verb}`)
