@@ -66,7 +66,6 @@ const main = async () => {
   for (const p of planetNames) {
     if (planets['YOU'][p] > 0 && planets['SAN'][p] > 0) {
       if (distances[0] > planets['YOU'][p] && distances[1] > planets['SAN'][p]) {
-        commonPlanet = p
         distances = [planets['YOU'][p], planets['SAN'][p]]
       }
     }
