@@ -63,7 +63,7 @@ const permute = (input, permArr = [], usedNumbers = []) => {
     let numbers = input.splice(i, 1)[0]
     usedNumbers.push(numbers)
 
-    if (input.length == 0) permArr.push(usedNumbers.slice())
+    if (!input.length) permArr.push(usedNumbers.slice())
 
     permute(input, permArr, usedNumbers)
     input.splice(i, 0, numbers)
