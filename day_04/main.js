@@ -2,7 +2,7 @@ const countOcurrences = (arr, num) => {
   let count = 0
 
   for (const a of arr) {
-    if (a == num) count++
+    if (a === num) count++
   }
 
   return count
@@ -12,17 +12,17 @@ const isValidPassword = (password, level) => {
   const digits = String(password).split('').map(Number)
   let isValid = false
 
-  if (level == 1) {
+  if (level === 1) {
     for (let i = 1; i < digits.length; i++) {
       if (digits[i - 1] > digits[i]) return false
-      if (digits[i - 1] == digits[i]) isValid = true
+      if (digits[i - 1] === digits[i]) isValid = true
     }
   }
 
-  if (level == 2) {
+  if (level === 2) {
     for (let i = 0; i < 10; i++) {
       if (digits[i - 1] > digits[i]) return false
-      if (countOcurrences(digits, i) == 2) isValid = true
+      if (countOcurrences(digits, i) === 2) isValid = true
     }
   }
 
