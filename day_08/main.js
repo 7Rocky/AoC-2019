@@ -16,11 +16,31 @@ const countPixels = (pixel, layer) => {
   return layer.map(row => row.filter(p => p === pixel).length).reduce((t, n) => t + n)
 }
 
+const makeImage = (image, layers) => {
+  const pointer = [0, 0]
+
+  while (countPixels('#', image)) {
+    const pixels = layers.map(layer => layer[pointer[1]][pointer[0]])
+    image[pointer[1]][pointer[0]] = pixels.find(pixel => pixel !== 2)
+    pointer[0]++
+
+    if (pointer[0] === dimensions[0]) {
+      pointer[0] = 0
+      pointer[1]++
+
+      if (pointer[1] === dimensions[1]) break
+    }
+  }
+}
+
+const decode = image => image.reduce((d, row) => `${d}\n${row.join('').replace(/0/g, ' ')}`, '\n')
+
+const dimensions = [25, 6]
+
 const main = async () => {
   const pixelStream = await getInput()
-  const dimensions = [25, 6]
 
-  pixels = pixelStream.split('').map(Number)
+  const pixels = pixelStream.split('').map(Number)
 
   const layers = []
 
@@ -72,24 +92,9 @@ const main = async () => {
     image.push(row)
   }
 
-  const pointer = [0, 0]
-
-  while (countPixels('#', image)) {
-    const pixels = layers.map(layer => layer[pointer[1]][pointer[0]])
-    image[pointer[1]][pointer[0]] = pixels.find(pixel => pixel !== 2)
-    pointer[0]++
-
-    if (pointer[0] === dimensions[0]) {
-      pointer[0] = 0
-      pointer[1]++
-
-      if (pointer[1] === dimensions[1]) break
-    }
-  }
+  makeImage(image, layers)
 
   console.log(`Image decoded mesage (2): ${decode(image)}`)
 }
-
-const decode = image => image.reduce((d, row) => `${d}\n${row.join('').replace(/0/g, ' ')}`, '\n')
 
 main()
