@@ -12,7 +12,7 @@ const getInput = async () => {
     const lines = []
 
     readline
-      .createInterface({ input: fs.createReadStream('./input.txt') })
+      .createInterface({ input: fs.createReadStream('input.txt') })
       .on('line', line => lines.push(line))
       .on('close', () => (lines.length === 1 ? resolve(lines[0]) : resolve(lines)))
   })
