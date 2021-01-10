@@ -113,7 +113,7 @@ const getSteps = (crossingPoints, path) => {
 
 const indexOf = (point, points) => {
   for (let i = 0; i < points.length; i++) {
-    if (points[i][0] == point[0] && points[i][1] == point[1]) {
+    if (points[i][0] === point[0] && points[i][1] === point[1]) {
       return i
     }
   }
