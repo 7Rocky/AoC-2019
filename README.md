@@ -5,6 +5,7 @@ Resolution of the problems in JavaScript language:
 ```
 git clone https://github.com/7Rocky/AoC-2019
 cd AoC-2019/day_<number>
+
 node main.js
 ```
 
