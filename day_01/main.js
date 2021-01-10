@@ -33,7 +33,7 @@ const main = async () => {
     fuel = fuel.map(getFuel)
   }
 
-  result = totalFuel.map(f => f.reduce((t, f) => t + f)).reduce((t, f) => t + f)
+  result = totalFuel.map(f => f.reduce((t, _f) => t + _f)).reduce((t, f) => t + f)
 
   console.log(`Sum of the total fuel requirements (2): ${result}`)
 }
