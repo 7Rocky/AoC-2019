@@ -121,8 +121,10 @@ const main = async () => {
 
   const result = lastVaporizedAsteroid[0] * 100 + lastVaporizedAsteroid[1]
 
-  console.log(`BOOST keycode (1): ${maxSight}`)
-  console.log(`Coordinates of the distress signal (2): ${result}`)
+  console.log(`Maximum number of asteroids in sight (1): ${maxSight}`)
+  console.log(`Position of 200th asteroid vaporized (2): ${result}`)
 }
 
 main()
+
+module.exports = main
