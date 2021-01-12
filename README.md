@@ -20,3 +20,4 @@ node main.js
 | [Day 07](day_07) | Amplification Circuit              | :star::star::star:             |
 | [Day 08](day_08) | Space Image Format                 | :star::star:                   |
 | [Day 09](day_09) | Sensor Boost                       | :star::star:                   |
+| [Day 10](day_10) | Monitoring Station                 | :star::star::star::star:       |
