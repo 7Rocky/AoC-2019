@@ -73,7 +73,7 @@ const vaporize = (asteroids, station, direction) => {
   return false
 }
 
-const magnitude = ([a, b]) => Math.pow(a, 2) + Math.pow(b, 2)
+const magnitude = ([a, b]) => a ** 2 + b ** 2
 
 const angle = ([a, b]) => Math.atan2(a, b)
 
@@ -126,5 +126,3 @@ const main = async () => {
 }
 
 main()
-
-module.exports = main
