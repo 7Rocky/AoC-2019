@@ -1,12 +1,58 @@
-const main = require('./main')
+const fs = require('fs')
+const readline = require('readline')
 
-const consoleSpy = jest.spyOn(console, 'log')
+const RESET = '\033[0m'
 
-describe('AoC 2019 Problem 09', () => {
-  it('should return correct results', async () => {
-    await main()
+const RED_BACKGROUND = '\033[41m'
+const GREEN_BACKGROUND = '\033[42m'
 
-    expect(consoleSpy).toHaveBeenCalledWith('BOOST keycode (1): 3335138414')
-    expect(consoleSpy).toHaveBeenCalledWith('Coordinates of the distress signal (2): 49122')
+const RED_BOLD_BRIGHT = '\033[1;91m'
+const GREEN_BOLD_BRIGHT = '\033[1;92m'
+const YELLOW_BOLD_BRIGHT = '\033[1;93m'
+const WHITE_BOLD_BRIGHT = '\033[1;97m'
+
+const answer1 = 'BOOST keycode (1): 3335138414'
+const answer2 = 'Coordinates of the distress signal (2): 49122'
+
+const getOutput = async () => {
+  return new Promise(resolve => {
+    const lines = []
+
+    readline
+      .createInterface({ input: fs.createReadStream('output.txt') })
+      .on('line', line => lines.push(line))
+      .on('close', () => resolve(lines))
   })
-})
+}
+
+const main = async () => {
+  if (process.argv.length > 1 && process.argv[2] === 'time') {
+    console.log(Date.now())
+  } else {
+    const lines = await getOutput()
+    const init = Number(lines.shift())
+    const time = (Date.now() - init) / 1000
+
+    const answers = [answer1, answer2]
+    let pass = true
+
+    for (const answer of answers) {
+      if (lines.indexOf(answer) === -1) {
+        pass = false
+        break
+      }
+    }
+
+    if (pass) {
+      console.log(GREEN_BACKGROUND + WHITE_BOLD_BRIGHT + ' PASS ' + RESET)
+    } else {
+      console.log(RED_BACKGROUND + WHITE_BOLD_BRIGHT + ' FAIL ' + RESET)
+    }
+
+    const color = time < 3 ? GREEN_BOLD_BRIGHT : time < 20 ? YELLOW_BOLD_BRIGHT : RED_BOLD_BRIGHT
+
+    console.log(WHITE_BOLD_BRIGHT + ' Time  ' + color + time + ' s' + RESET)
+  }
+}
+
+main()
