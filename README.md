@@ -12,8 +12,7 @@ node main.js
 ```bash
 cd AoC-2019
 
-npm install
-npm test     # or `make test`
+make test
 ```
 
 | Problem          | Title                              | Difficulty                     |
