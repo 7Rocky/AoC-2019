@@ -19,40 +19,78 @@ const getPathsPoints = path => {
 
   for (let dir of directions) {
     const dirNumber = Number(dir.substring(1))
+    const lastPoint = pathPoints[pathPoints.length - 1]
 
-    for (let i = 1; i <= dirNumber; i++) {
-      const lastPoint = pathPoints[pathPoints.length - 1]
-      let newPoint = []
-
-      switch (dir[0]) {
-        case 'R':
-          newPoint = [lastPoint[0] + 1, lastPoint[1]]
-          break
-        case 'L':
-          newPoint = [lastPoint[0] - 1, lastPoint[1]]
-          break
-        case 'U':
-          newPoint = [lastPoint[0], lastPoint[1] + 1]
-          break
-        case 'D':
-          newPoint = [lastPoint[0], lastPoint[1] - 1]
-          break
-      }
-
-      pathPoints.push(newPoint)
+    switch (dir[0]) {
+      case 'R':
+        pathPoints.push([lastPoint[0] + dirNumber, lastPoint[1]])
+        break
+      case 'L':
+        pathPoints.push([lastPoint[0] - dirNumber, lastPoint[1]])
+        break
+      case 'U':
+        pathPoints.push([lastPoint[0], lastPoint[1] + dirNumber])
+        break
+      case 'D':
+        pathPoints.push([lastPoint[0], lastPoint[1] - dirNumber])
+        break
     }
   }
 
   return pathPoints
 }
 
+const getABCD = points => {
+  const sortedPoints = []
+
+  if (points[0][1] === points[1][1]) {
+    if (points[0][0] < points[1][0]) {
+      sortedPoints.push(points[0])
+      sortedPoints.push(points[1])
+    } else {
+      sortedPoints.push(points[1])
+      sortedPoints.push(points[0])
+    }
+  } else {
+    if (points[2][0] < points[3][0]) {
+      sortedPoints.push(points[2])
+      sortedPoints.push(points[3])
+    } else {
+      sortedPoints.push(points[3])
+      sortedPoints.push(points[2])
+    }
+  }
+
+  if (points[0][0] === points[1][0]) {
+    if (points[0][1] < points[1][1]) {
+      sortedPoints.push(points[0])
+      sortedPoints.push(points[1])
+    } else {
+      sortedPoints.push(points[1])
+      sortedPoints.push(points[0])
+    }
+  } else {
+    if (points[2][1] < points[3][1]) {
+      sortedPoints.push(points[2])
+      sortedPoints.push(points[3])
+    } else {
+      sortedPoints.push(points[3])
+      sortedPoints.push(points[2])
+    }
+  }
+
+  return sortedPoints
+}
+
 const findCrossingPoints = paths => {
   const crossingPoints = []
 
-  for (const p of paths[0]) {
-    for (const q of paths[1]) {
-      if (p[0] === q[0] && p[1] === q[1]) {
-        crossingPoints.push(p)
+  for (let i = 1; i < paths[0].length; i++) {
+    for (let j = 1; j < paths[1].length; j++) {
+      const [a, b, c, d] = getABCD([paths[0][i - 1], paths[0][i], paths[1][j - 1], paths[1][j]])
+
+      if (a[0] < c[0] && c[0] < b[0] && c[1] < a[1] && a[1] < d[1]) {
+        crossingPoints.push([c[0], a[1]])
       }
     }
   }
@@ -144,5 +182,3 @@ const main = async () => {
 }
 
 main()
-
-module.exports = main
