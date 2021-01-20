@@ -34,15 +34,12 @@ const main = async () => {
   })
 
   for (let i = 0; i < 2; i++) {
-    // Re-iterate to get the complete Dijkstra "matrix"
     planetNames.forEach(p =>
       planetNames.forEach(q => {
         if (planets[p][q] > 0) {
           planetNames
             .filter(r => planets[q][r] > 0)
-            .forEach(r => {
-              planets[p][r] = planets[p][q] + planets[q][r]
-            })
+            .forEach(r => (planets[p][r] = planets[p][q] + planets[q][r]))
         }
       })
     )
@@ -75,5 +72,3 @@ const main = async () => {
 }
 
 main()
-
-module.exports = main
