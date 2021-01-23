@@ -27,3 +27,4 @@ make test
 | [Day 08](day_08) | Space Image Format                 | :star::star:                   |
 | [Day 09](day_09) | Sensor Boost                       | :star::star:                   |
 | [Day 10](day_10) | Monitoring Station                 | :star::star::star::star:       |
+| [Day 11](day_11) | Space Police                       | :star::star::star:             |
