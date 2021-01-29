@@ -30,3 +30,4 @@ make test
 | [Day 11](day_11) | Space Police                       | :star::star::star:             |
 | [Day 12](day_12) | The N-Body Problem                 | :star::star::star:             |
 | [Day 13](day_13) | Care Package                       | :star::star::star:             |
+| [Day 14](day_14) | Space Stoichiometry                | :star::star::star::star:       |
