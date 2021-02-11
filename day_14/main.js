@@ -8,7 +8,7 @@ const getInput = async () => {
     readline
       .createInterface({ input: fs.createReadStream('input.txt') })
       .on('line', line => lines.push(line))
-      .on('close', () => (lines.length === 1 ? resolve(lines[0]) : resolve(lines)))
+      .on('close', () => resolve(lines.length === 1 ? lines[0] : lines))
   })
 }
 
