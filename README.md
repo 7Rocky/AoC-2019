@@ -34,3 +34,4 @@ make test
 | [Day 15](day_15) | Oxygen System                      | :star::star::star::star:       |
 | [Day 16](day_16) | Flawed Frequency Transmission      | :star::star::star::star:       |
 | [Day 17](day_17) | Set and Forget                     | :star::star::star:             |
+| [Day 18](day_18) | Many-Worlds Interpretation         | :star::star::star::star::star: |
