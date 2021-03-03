@@ -238,7 +238,7 @@ const main = async () => {
 
   intcode = initialIntcode.split(',').map(Number)
 
-  const asciiCodes = process(intcode)
+  const asciiCodes = process()
   const map = []
   let row = ''
 
