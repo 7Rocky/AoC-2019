@@ -1,12 +1,6 @@
 const fs = require('fs')
 const readline = require('readline')
 
-const getFuel = mass => {
-  const result = Math.floor(mass / 3) - 2
-
-  return result > 0 ? result : 0
-}
-
 const getInput = async () => {
   return new Promise(resolve => {
     const lines = []
@@ -18,22 +12,30 @@ const getInput = async () => {
   })
 }
 
+const getFuel = mass => {
+  const result = Math.floor(mass / 3) - 2
+
+  return result > 0 ? result : 0
+}
+
+const sum = (t, n) => t + n
+
 const main = async () => {
   const masses = await getInput()
 
   let fuel = masses.map(Number).map(getFuel)
-  let result = fuel.reduce((t, f) => t + f)
+  let result = fuel.reduce(sum)
 
   console.log(`Sum of the fuel requirements (1): ${result}`)
 
   const totalFuel = []
 
-  while (fuel.reduce((t, f) => t + f) != 0) {
+  while (fuel.reduce(sum)) {
     totalFuel.push(fuel)
     fuel = fuel.map(getFuel)
   }
 
-  result = totalFuel.map(f => f.reduce((t, _f) => t + _f)).reduce((t, f) => t + f)
+  result = totalFuel.map(f => f.reduce(sum)).reduce(sum)
 
   console.log(`Sum of the total fuel requirements (2): ${result}`)
 }
