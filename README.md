@@ -36,3 +36,4 @@ make test
 | [Day 17](day_17) | Set and Forget                     | :star::star::star:             |
 | [Day 18](day_18) | Many-Worlds Interpretation         | :star::star::star::star::star: |
 | [Day 19](day_19) | Tractor Beam                       | :star::star::star::star:       |
+| [Day 20](day_20) | Donut Maze                         | :star::star::star::star::star: |
