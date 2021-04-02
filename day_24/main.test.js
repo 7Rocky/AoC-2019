@@ -12,7 +12,7 @@ const YELLOW_BOLD_BRIGHT = '\033[1;93m'
 const WHITE_BOLD_BRIGHT = '\033[1;97m'
 
 const answer1 = 'Biodiversity (1): 11042850'
-const answer2 = 'Minimum number of steps (2): 1967'
+const answer2 = 'Number of bugs after 200 minutes (2): 1967'
 
 const getOutput = async () => {
   return new Promise(resolve => {
