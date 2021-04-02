@@ -171,7 +171,7 @@ const roomItems = loc => {
 
 const main = async () => {
   const input = await getInput()
-  let initialIntcode = input.split(',').map(Number)
+  const initialIntcode = input.split(',').map(Number)
 
   let initRoom = ''
   const init = intcodeRunner(initialIntcode, v => (initRoom += String.fromCharCode(v)))
