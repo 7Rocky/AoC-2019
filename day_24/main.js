@@ -21,10 +21,7 @@ const countAdjacent = (state, j, i) => {
     [0, 1],
     [0, -1]
   ]
-    .map(([m, n]) => {
-      if (!state[j + m]) return 0
-      return Number(state[j + m][i + n] === '#')
-    })
+    .map(([m, n]) => (!state[j + m] ? 0 : Number(state[j + m][i + n] === '#')))
     .reduce(sum)
 }
 
